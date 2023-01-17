@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/FakeBank.iml" filepath="$PROJECT_DIR$/.idea/FakeBank.iml" />
+      <module fileurl="file://$PROJECT_DIR$/FakeBank/app/app.iml" filepath="$PROJECT_DIR$/FakeBank/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/FakeBank/backend.iml" filepath="$PROJECT_DIR$/FakeBank/backend.iml" />
+      <module fileurl="file://$PROJECT_DIR$/FakeBank/common/common.iml" filepath="$PROJECT_DIR$/FakeBank/common/common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/FakeBank/integration/integration.iml" filepath="$PROJECT_DIR$/FakeBank/integration/integration.iml" />
+      <module fileurl="file://$PROJECT_DIR$/FakeBank/rest/rest.iml" filepath="$PROJECT_DIR$/FakeBank/rest/rest.iml" />
+    </modules>
+  </component>
+</project>
