@@ -9,12 +9,14 @@ import java.util.Optional;
 
 @Service
 public class UserService {
-
     UserRepository repository;
-
 
     public UserService(UserRepository repository) {
         this.repository = repository;
+    }
+
+    public User findUserByPersonalNumber(String personalNumber) {
+        return repository.findByPersonalNumber(personalNumber).get(0);
     }
 
     public List<User> getAllUsers() {

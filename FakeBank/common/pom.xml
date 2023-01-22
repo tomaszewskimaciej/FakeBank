@@ -12,6 +12,6 @@
     <groupId>com.fake.bank.backend</groupId>
     <artifactId>common</artifactId>
     <packaging>jar</packaging>
-    <name>Fantasy :: common</name>
+    <name>Fake :: common</name>
 
 </project>

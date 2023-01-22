@@ -27,4 +27,8 @@ public class Account {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private CurrencyType currency;
+
+    @ManyToOne
+    @JoinColumn(name="user_id", nullable=false)
+    private User user;
 }

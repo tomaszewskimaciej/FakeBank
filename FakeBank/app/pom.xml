@@ -12,7 +12,7 @@
     <groupId>com.fake.bank.backend</groupId>
     <artifactId>app</artifactId>
     <packaging>war</packaging>
-    <name>Fantasy :: app</name>
+    <name>Fake :: app</name>
 
     <dependencies>
         <dependency>
