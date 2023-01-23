@@ -12,10 +12,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@AllArgsConstructor
 @RequestMapping(RestApiVersion.version + "/user")
 public class UserController {
     private final UserRestService service;
+
+    public UserController(UserRestService service) {
+        this.service = service;
+    }
 
     @GetMapping()
     public ResponseEntity<UserDTO> user() {

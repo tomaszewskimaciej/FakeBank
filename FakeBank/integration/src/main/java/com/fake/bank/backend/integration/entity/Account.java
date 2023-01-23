@@ -27,6 +27,6 @@ public class Account {
     private CurrencyType currency;
 
     @ManyToOne
-    @JoinColumn(name="user_id", insertable = false, updatable = false)
+    @JoinColumn(name = "user_id", updatable = false)
     private User user;
 }
