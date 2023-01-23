@@ -1,9 +1,6 @@
 package com.fake.bank.backend.integration.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import com.fake.bank.backend.common.CurrencyType;
 
 import javax.persistence.*;
@@ -14,6 +11,7 @@ import java.math.BigDecimal;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Table(name = "ACCOUNT")
 public class Account {
 
@@ -29,6 +27,6 @@ public class Account {
     private CurrencyType currency;
 
     @ManyToOne
-    @JoinColumn(name="user_id", nullable=false)
+    @JoinColumn(name="user_id", insertable = false, updatable = false)
     private User user;
 }

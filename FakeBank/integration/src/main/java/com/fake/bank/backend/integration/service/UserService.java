@@ -2,6 +2,7 @@ package com.fake.bank.backend.integration.service;
 
 import com.fake.bank.backend.integration.entity.User;
 import com.fake.bank.backend.integration.repository.UserRepository;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,6 +18,15 @@ public class UserService {
 
     public User findUserByPersonalNumber(String personalNumber) {
         return repository.findByPersonalNumber(personalNumber).get(0);
+    }
+
+    public void saveUser(User user) {
+        try {
+            repository.save(user);
+        } catch (ConstraintViolationException e) {
+            System.out.println(e);
+            throw new RuntimeException();
+        }
     }
 
     public List<User> getAllUsers() {

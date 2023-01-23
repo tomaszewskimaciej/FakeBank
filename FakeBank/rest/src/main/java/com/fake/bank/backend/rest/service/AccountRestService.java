@@ -2,7 +2,9 @@ package com.fake.bank.backend.rest.service;
 
 import com.fake.bank.backend.rest.model.account.ExchangeDTO;
 import com.fake.bank.backend.rest.service.adapter.AccountServiceAdapter;
+import org.springframework.stereotype.Service;
 
+@Service
 public class AccountRestService {
     private final AccountServiceAdapter accountServiceAdapter;
 

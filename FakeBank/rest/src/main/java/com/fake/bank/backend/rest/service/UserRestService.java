@@ -2,7 +2,9 @@ package com.fake.bank.backend.rest.service;
 
 import com.fake.bank.backend.rest.model.user.UserDTO;
 import com.fake.bank.backend.rest.service.adapter.UserServiceAdapter;
+import org.springframework.stereotype.Service;
 
+@Service
 public class UserRestService {
     private final UserServiceAdapter userServiceAdapter;
 
