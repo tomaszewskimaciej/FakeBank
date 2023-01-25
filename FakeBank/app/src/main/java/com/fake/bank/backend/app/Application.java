@@ -9,6 +9,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.PropertySources;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
+
 @SpringBootApplication
 @ComponentScan({"com.fake.bank"})
 @EntityScan({"com.fake.bank.backend.integration.entity"})
