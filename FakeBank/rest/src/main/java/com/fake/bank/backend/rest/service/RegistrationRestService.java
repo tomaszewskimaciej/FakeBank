@@ -5,20 +5,12 @@ import com.fake.bank.backend.rest.service.adapter.UserServiceAdapter;
 import org.springframework.stereotype.Service;
 
 @Service
-public class LoginRestService {
+public class RegistrationRestService {
 
     private final UserServiceAdapter service;
 
-    public LoginRestService(UserServiceAdapter service) {
+    public RegistrationRestService(UserServiceAdapter service) {
         this.service = service;
-    }
-
-    public void login() {
-
-    }
-
-    public void logout() {
-
     }
 
     public void registration(RegistrationDTO registrationDTO) {

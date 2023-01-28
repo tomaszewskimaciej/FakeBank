@@ -1,7 +1,7 @@
 package com.fake.bank.backend.integration.entity;
 
 import lombok.*;
-import com.fake.bank.backend.common.CurrencyType;
+import com.fake.bank.backend.common.type.CurrencyType;
 
 import javax.persistence.*;
 import java.math.BigDecimal;

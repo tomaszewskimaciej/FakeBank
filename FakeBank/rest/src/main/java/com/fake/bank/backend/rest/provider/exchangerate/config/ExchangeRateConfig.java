@@ -1,6 +1,6 @@
 package com.fake.bank.backend.rest.provider.exchangerate.config;
 
-import com.fake.bank.backend.common.CurrencyType;
+import com.fake.bank.backend.common.type.CurrencyType;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;

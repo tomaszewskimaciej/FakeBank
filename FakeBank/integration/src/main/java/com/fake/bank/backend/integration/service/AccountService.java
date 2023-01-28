@@ -1,6 +1,8 @@
 package com.fake.bank.backend.integration.service;
 
-import com.fake.bank.backend.common.CurrencyType;
+import com.fake.bank.backend.common.exception.FakeBankException;
+import com.fake.bank.backend.common.exception.type.FakeBankErrorType;
+import com.fake.bank.backend.common.type.CurrencyType;
 import com.fake.bank.backend.integration.entity.Account;
 import com.fake.bank.backend.integration.entity.User;
 import com.fake.bank.backend.integration.repository.AccountRepository;
@@ -24,8 +26,8 @@ public class AccountService {
     }
 
     public void exchange(String personalNumber, BigDecimal amount, CurrencyType fromCurrencyAccount, CurrencyType toCurrencyAccount, BigDecimal exchangeRate) {
-        User user = userRepository.findByPersonalNumber(personalNumber).get(0);
-        Account fromAccount = getAccountByCurrency(user.getAccounts(), fromCurrencyAccount).orElseThrow(RuntimeException::new);
+        User user = userRepository.findByPersonalNumber(personalNumber);
+        Account fromAccount = getAccountByCurrency(user.getAccounts(), fromCurrencyAccount).orElseThrow(() -> new FakeBankException(FakeBankErrorType.FB_499));
         Account toAccount = getAccountByCurrency(user.getAccounts(), toCurrencyAccount).orElse(Account.builder().amount(BigDecimal.valueOf(0)).currency(toCurrencyAccount).user(user).build());
 
         doExchange(fromAccount, toAccount, amount, exchangeRate);

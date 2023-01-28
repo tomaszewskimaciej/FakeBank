@@ -1,6 +1,6 @@
 package com.fake.bank.backend.integration.mapper;
 
-import com.fake.bank.backend.common.CurrencyType;
+import com.fake.bank.backend.common.type.CurrencyType;
 import com.fake.bank.backend.integration.entity.Account;
 import com.fake.bank.backend.integration.entity.User;
 import com.fake.bank.backend.rest.model.user.RegistrationDTO;

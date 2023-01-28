@@ -1,8 +1,10 @@
 package com.fake.bank.backend.integration.service;
 
+import com.fake.bank.backend.common.exception.FakeBankException;
+import com.fake.bank.backend.common.exception.type.FakeBankErrorType;
 import com.fake.bank.backend.integration.entity.User;
 import com.fake.bank.backend.integration.repository.UserRepository;
-import org.hibernate.exception.ConstraintViolationException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,15 +19,14 @@ public class UserService {
     }
 
     public User findUserByPersonalNumber(String personalNumber) {
-        return repository.findByPersonalNumber(personalNumber).get(0);
+        return repository.findByPersonalNumber(personalNumber);
     }
 
     public void saveUser(User user) {
         try {
             repository.save(user);
-        } catch (ConstraintViolationException e) {
-            System.out.println(e);
-            throw new RuntimeException();
+        } catch (DataIntegrityViolationException e) {
+            throw new FakeBankException(FakeBankErrorType.FB_002);
         }
     }
 

@@ -1,6 +1,6 @@
 package com.fake.bank.backend.rest.service;
 
-import com.fake.bank.backend.common.CurrencyType;
+import com.fake.bank.backend.common.type.CurrencyType;
 import com.fake.bank.backend.rest.provider.exchangerate.config.ExchangeRateConfig;
 import com.fake.bank.backend.rest.provider.exchangerate.model.ExchangeRateDTO;
 import com.fake.bank.backend.rest.provider.exchangerate.model.Rate;

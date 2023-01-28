@@ -1,6 +1,6 @@
 package com.fake.bank.backend.rest.model.account;
 
-import com.fake.bank.backend.common.CurrencyType;
+import com.fake.bank.backend.common.type.CurrencyType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
