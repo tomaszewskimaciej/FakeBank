@@ -1,0 +1,14 @@
+api:
+  exchange-rate:
+    host: "https://api.nbp.pl"
+    path: "/api/exchangerates/rates/C/"
+    main-currency: "PLN"
+    query-parameters:
+      format: JSON
+
+springdoc:
+  group-configs:
+    - group: "fake-bank"
+      packages-to-scan: "com.fake.bank.backend.rest"
+  swagger-ui:
+    defaultModelsExpandDepth: -1

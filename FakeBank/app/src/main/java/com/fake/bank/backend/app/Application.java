@@ -1,6 +1,8 @@
 package com.fake.bank.backend.app;
 
 import com.fake.bank.backend.app.config.YamlPropertySourceFactory;
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.info.Info;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -18,6 +20,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
         @PropertySource(value = "classpath:integration.yaml", factory = YamlPropertySourceFactory.class),
         @PropertySource(value = "classpath:rest.yaml", factory = YamlPropertySourceFactory.class)
 })
+@OpenAPIDefinition(info = @Info(title = "Fake-Bank API", version = "0.1", description = "Fake-Bank Information"))
 public class Application {
 
     private static final String SPRING_CONFIG_NAME = "spring.config.name";
