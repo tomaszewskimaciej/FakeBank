@@ -19,10 +19,10 @@ import javax.validation.Valid;
 @RestController
 public class RegistrationController {
 
-    private final RegistrationRestService loginService;
+    private final RegistrationRestService registrationService;
 
     public RegistrationController(RegistrationRestService service) {
-        this.loginService = service;
+        this.registrationService = service;
     }
 
     @ApiResponses(value = {
@@ -41,7 +41,7 @@ public class RegistrationController {
     })
     @PostMapping("/registration")
     public ResponseEntity<Void> registration(@Parameter(required = true) @Valid @RequestBody RegistrationDTO registrationDTO) {
-        loginService.registration(registrationDTO);
+        registrationService.registration(registrationDTO);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 

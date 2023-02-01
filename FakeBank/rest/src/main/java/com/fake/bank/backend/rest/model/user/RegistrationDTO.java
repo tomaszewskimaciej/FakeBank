@@ -2,10 +2,7 @@ package com.fake.bank.backend.rest.model.user;
 
 import com.fake.bank.backend.rest.validator.annotation.PersonalIdentityNumberValidation;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
 
@@ -13,6 +10,8 @@ import java.math.BigDecimal;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
+@EqualsAndHashCode
 public class RegistrationDTO {
     @Schema(description = "First name", example = "Jakub")
     private String firstName;

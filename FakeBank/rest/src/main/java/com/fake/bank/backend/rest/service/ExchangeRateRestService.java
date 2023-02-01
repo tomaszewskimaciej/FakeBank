@@ -1,10 +1,13 @@
 package com.fake.bank.backend.rest.service;
 
+import com.fake.bank.backend.common.exception.FakeBankException;
+import com.fake.bank.backend.common.exception.type.FakeBankErrorType;
 import com.fake.bank.backend.common.type.CurrencyType;
 import com.fake.bank.backend.rest.provider.exchangerate.config.ExchangeRateConfig;
 import com.fake.bank.backend.rest.provider.exchangerate.model.ExchangeRateDTO;
 import com.fake.bank.backend.rest.provider.exchangerate.model.Rate;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import java.math.BigDecimal;
@@ -13,32 +16,37 @@ import java.math.RoundingMode;
 @Service
 public class ExchangeRateRestService {
     private final ExchangeRateConfig exchangeRateConfig;
-    private final RestTemplate restTemplate = new RestTemplate();
+    private final RestTemplate restTemplate;
 
-    public ExchangeRateRestService(ExchangeRateConfig exchangeRateConfig) {
+    public ExchangeRateRestService(ExchangeRateConfig exchangeRateConfig, RestTemplate restTemplate) {
         this.exchangeRateConfig = exchangeRateConfig;
+        this.restTemplate = restTemplate;
     }
 
-    public BigDecimal getExchangeRate(CurrencyType from, CurrencyType to){
-        if(exchangeRateConfig.getMainCurrency().equals(from) && exchangeRateConfig.getMainCurrency().equals(to) == false) {
-            return new BigDecimal(1).divide(getExchangeRate(to).getBid(), 2, RoundingMode.HALF_EVEN);
+    public BigDecimal getExchangeRate(CurrencyType from, CurrencyType to) {
+        if (exchangeRateConfig.getMainCurrency().equals(from) && exchangeRateConfig.getMainCurrency().equals(to) == false) {
+            return new BigDecimal(1).divide(getExchangeRate(to).getAsk(), 4, RoundingMode.FLOOR);
         }
 
-        if(exchangeRateConfig.getMainCurrency().equals(to) && exchangeRateConfig.getMainCurrency().equals(from) == false) {
-            return getExchangeRate(from).getAsk();
+        if (exchangeRateConfig.getMainCurrency().equals(to) && exchangeRateConfig.getMainCurrency().equals(from) == false) {
+            return getExchangeRate(from).getBid();
         }
 
-        throw new RuntimeException();
+        throw new FakeBankException(FakeBankErrorType.FB_499);
     }
 
     private Rate getExchangeRate(CurrencyType currencyType) {
 
-        ExchangeRateDTO exchangeRateDTO = restTemplate.getForObject(exchangeRateConfig.buildUrl(currencyType.toString()), ExchangeRateDTO.class);
+        try {
+            ExchangeRateDTO exchangeRateDTO = restTemplate.getForObject(exchangeRateConfig.buildUrl(currencyType.toString()), ExchangeRateDTO.class);
 
-        if(exchangeRateDTO == null || exchangeRateDTO.getRates() == null || exchangeRateDTO.getRates().isEmpty()) {
-            throw new RuntimeException();
+            if (exchangeRateDTO == null || exchangeRateDTO.getRates() == null) {
+                throw new FakeBankException(FakeBankErrorType.FB_598);
+            }
+
+            return exchangeRateDTO.getRates().stream().findFirst().orElseThrow(() -> new FakeBankException(FakeBankErrorType.FB_598));
+        } catch (RestClientException e) {
+            throw new FakeBankException(FakeBankErrorType.FB_597);
         }
-
-        return exchangeRateDTO.getRates().stream().findFirst().orElseThrow(RuntimeException::new);
     }
 }
