@@ -9,10 +9,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.mockito.Spy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.test.context.ConfigDataApplicationContextInitializer;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -25,7 +25,7 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.doReturn;
 
 @ExtendWith(SpringExtension.class)
 @EnableConfigurationProperties(value = ExchangeRateConfig.class)
@@ -35,25 +35,25 @@ class ExchangeRateRestServiceTest {
     @Autowired
     private ExchangeRateConfig exchangeRateConfig;
 
-    @MockBean
+    @Spy
     private RestTemplate restTemplate;
 
     private ExchangeRateRestService exchangeRateService;
 
     @BeforeEach
     public void beforeEach() {
-        exchangeRateService = new ExchangeRateRestService(exchangeRateConfig, restTemplate);
+        exchangeRateService = new ExchangeRateRestService(exchangeRateConfig);
     }
 
     @ParameterizedTest
     @MethodSource("provideCasesForExchangeRate")
     void shouldReturnProperExchangeRate(CurrencyType from, CurrencyType to, BigDecimal expectedExchangeRate) {
         //give
-        given(restTemplate.getForObject(any(), any())).willReturn(getExchangeRateDTO());
+        doReturn(getExchangeRateDTO()).when(restTemplate).getForObject(any(), any());
         //when
         BigDecimal actual = exchangeRateService.getExchangeRate(from, to);
         //then
-        assertEquals(expectedExchangeRate, actual);
+        assertEquals(mexpectedExchangeRate, actual);
     }
 
     private static Stream<Arguments> provideCasesForExchangeRate() {
@@ -68,7 +68,7 @@ class ExchangeRateRestServiceTest {
     }
 
     private static BigDecimal getExchangeRateUSDtoPLN() {
-        return getExchangeRateDTO().getRates().get(0).getBid();
+        return getExchangeRateDTO().getRates().get(0).getBid().setScale(4, RoundingMode.FLOOR);
     }
 
     public static ExchangeRateDTO getExchangeRateDTO() {
@@ -78,7 +78,7 @@ class ExchangeRateRestServiceTest {
                 .code("USD")
                 .rates(List.of(Rate.builder()
                                 .no("230/C/NBP/2022")
-                                .effectiveDate("2022-11-29")
+                                .effectiveDate("2023-02-02")
                                 .bid(BigDecimal.valueOf(4.4440))
                                 .ask(BigDecimal.valueOf(4.5338))
                                 .build()

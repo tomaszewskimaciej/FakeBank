@@ -1,11 +1,2 @@
 server:
   port: 8081
-
-debug: true
-logging:
-  level:
-    org:
-      springframework:
-        web:
-          client:
-            RestTemplate: DEBUG

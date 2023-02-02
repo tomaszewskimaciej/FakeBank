@@ -11,12 +11,14 @@ import java.lang.annotation.Target;
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.PARAMETER;
 
-@Target( { FIELD, PARAMETER })
+@Target({FIELD, PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = PersonalIdentityNumberValidator.class)
 public @interface PersonalIdentityNumberValidation {
-    String message()default"Invalid date of birth";
-    Class<?>[] group() default{};
+    String message() default "Invalid date of birth";
+
+    Class<?>[] group() default {};
+
     Class<? extends Payload>[] payload() default {};
 
 }

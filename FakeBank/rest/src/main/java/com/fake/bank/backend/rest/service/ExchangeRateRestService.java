@@ -16,11 +16,10 @@ import java.math.RoundingMode;
 @Service
 public class ExchangeRateRestService {
     private final ExchangeRateConfig exchangeRateConfig;
-    private final RestTemplate restTemplate;
+    private final RestTemplate restTemplate = new RestTemplate();
 
-    public ExchangeRateRestService(ExchangeRateConfig exchangeRateConfig, RestTemplate restTemplate) {
+    public ExchangeRateRestService(ExchangeRateConfig exchangeRateConfig) {
         this.exchangeRateConfig = exchangeRateConfig;
-        this.restTemplate = restTemplate;
     }
 
     public BigDecimal getExchangeRate(CurrencyType from, CurrencyType to) {
@@ -29,7 +28,7 @@ public class ExchangeRateRestService {
         }
 
         if (exchangeRateConfig.getMainCurrency().equals(to) && exchangeRateConfig.getMainCurrency().equals(from) == false) {
-            return getExchangeRate(from).getBid();
+            return getExchangeRate(from).getBid().setScale(4, RoundingMode.FLOOR);
         }
 
         throw new FakeBankException(FakeBankErrorType.FB_499);

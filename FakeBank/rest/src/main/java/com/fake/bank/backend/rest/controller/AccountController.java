@@ -38,7 +38,7 @@ public class AccountController {
             )
     })
     @PostMapping("/exchange/{personalNumber}")
-        public ResponseEntity<Void> exchange(@Parameter(example = "1234567890", required = true) @PathVariable String personalNumber, @Parameter(required = true) @RequestBody ExchangeDTO exchangeDTO) {
+    public ResponseEntity<Void> exchange(@Parameter(example = "1234567890", required = true) @PathVariable String personalNumber, @Parameter(required = true) @RequestBody ExchangeDTO exchangeDTO) {
         accountService.exchange(personalNumber, exchangeDTO);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }

@@ -3,6 +3,7 @@ package com.fake.bank.backend.rest.provider.exchangerate.model;
 import lombok.*;
 
 import java.util.List;
+
 @Setter
 @Getter
 @AllArgsConstructor
