@@ -30,19 +30,4 @@ public class UserService {
         }
     }
 
-    public List<User> getAllUsers() {
-        return repository.findAll();
-    }
-
-    public Optional<User> getUserById(int id) {
-        return repository.findById(id);
-    }
-
-    public void saveOrUpdate(User user) {
-        repository.save(user);
-    }
-
-    public void delete(int id) {
-        repository.deleteById(id);
-    }
 }

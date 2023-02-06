@@ -16,10 +16,11 @@ import java.math.RoundingMode;
 @Service
 public class ExchangeRateRestService {
     private final ExchangeRateConfig exchangeRateConfig;
-    private final RestTemplate restTemplate = new RestTemplate();
+    private final RestTemplate restTemplate;
 
-    public ExchangeRateRestService(ExchangeRateConfig exchangeRateConfig) {
+    public ExchangeRateRestService(ExchangeRateConfig exchangeRateConfig, RestTemplate restTemplate) {
         this.exchangeRateConfig = exchangeRateConfig;
+        this.restTemplate = restTemplate;
     }
 
     public BigDecimal getExchangeRate(CurrencyType from, CurrencyType to) {

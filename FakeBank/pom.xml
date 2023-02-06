@@ -21,7 +21,7 @@
     <artifactId>backend</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>Fantasy :: all</name>
+    <name>Fake :: all</name>
 
     <properties>
         <java.version>11</java.version>

@@ -17,7 +17,7 @@ import static java.lang.annotation.ElementType.PARAMETER;
 public @interface PersonalIdentityNumberValidation {
     String message() default "Invalid date of birth";
 
-    Class<?>[] group() default {};
+    Class<?>[] groups() default {};
 
     Class<? extends Payload>[] payload() default {};
 

@@ -9,7 +9,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.mockito.Spy;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.test.context.ConfigDataApplicationContextInitializer;
@@ -25,7 +25,7 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doReturn;
+import static org.mockito.BDDMockito.given;
 
 @ExtendWith(SpringExtension.class)
 @EnableConfigurationProperties(value = ExchangeRateConfig.class)
@@ -35,25 +35,25 @@ class ExchangeRateRestServiceTest {
     @Autowired
     private ExchangeRateConfig exchangeRateConfig;
 
-    @Spy
+    @Mock
     private RestTemplate restTemplate;
 
     private ExchangeRateRestService exchangeRateService;
 
     @BeforeEach
     public void beforeEach() {
-        exchangeRateService = new ExchangeRateRestService(exchangeRateConfig);
+        exchangeRateService = new ExchangeRateRestService(exchangeRateConfig, restTemplate);
     }
 
     @ParameterizedTest
     @MethodSource("provideCasesForExchangeRate")
     void shouldReturnProperExchangeRate(CurrencyType from, CurrencyType to, BigDecimal expectedExchangeRate) {
-        //give
-        doReturn(getExchangeRateDTO()).when(restTemplate).getForObject(any(), any());
+        //given
+        given(restTemplate.getForObject(any(), any())).willReturn(getExchangeRateDTO());
         //when
         BigDecimal actual = exchangeRateService.getExchangeRate(from, to);
         //then
-        assertEquals(mexpectedExchangeRate, actual);
+        assertEquals(expectedExchangeRate, actual);
     }
 
     private static Stream<Arguments> provideCasesForExchangeRate() {
@@ -79,8 +79,8 @@ class ExchangeRateRestServiceTest {
                 .rates(List.of(Rate.builder()
                                 .no("230/C/NBP/2022")
                                 .effectiveDate("2023-02-02")
-                                .bid(BigDecimal.valueOf(4.4440))
-                                .ask(BigDecimal.valueOf(4.5338))
+                                .bid(BigDecimal.valueOf(4))
+                                .ask(BigDecimal.valueOf(5))
                                 .build()
                         )
                 ).build();

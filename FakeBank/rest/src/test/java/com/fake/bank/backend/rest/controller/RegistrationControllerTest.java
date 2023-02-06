@@ -26,7 +26,6 @@ class RegistrationControllerTest extends BaseUnitTest {
     private RegistrationRestService registrationService;
 
     @Test
-    @Disabled
     public void shouldReturnCreatedStatus() throws Exception {
         //given
         doNothing().when(registrationService).registration(any());
@@ -38,7 +37,6 @@ class RegistrationControllerTest extends BaseUnitTest {
     }
 
     @Test
-    @Disabled
     public void shouldReturnBadRequestWhenInvalidPersonalNumber() throws Exception {
         //given
         RegistrationDTO invalidPersonalNumber = getRegistrationDTO();
