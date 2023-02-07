@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Table(name = "ACCOUNT")
+@Table(name = "FB_ACCOUNT")
 public class Account {
 
     @Id
