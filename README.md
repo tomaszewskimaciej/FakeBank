@@ -1,3 +1,5 @@
+It's a fake API of Bank. External API (NBP) was implemented for currency rate.
+
 ## How to run
 
 Install packages in your local maven repository:
